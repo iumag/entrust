@@ -36,10 +36,11 @@ trait EntrustUserTrait
     }
     public function delete(array $options = [])
     {   //soft or hard
-        parent::delete($options);
+        $ret = parent::delete($options);
         if(Cache::getStore() instanceof TaggableStore) {
             Cache::tags(Config::get('entrust.role_user_table'))->flush();
         }
+        return $ret;
     }
     public function restore()
     {   //soft delete undo's
